@@ -50,8 +50,8 @@ pipeline {
             }
         }
         stage('Build and Tag docker image') {
-            script {
-                steps {
+            steps {
+                script {
                 withDockerRegistry(credentialsId: 'dockerhub-cred', toolName: 'docker') {
                     sh "docker build -t kkhoi/ekarrt:latest -f docker/Dockerfile ."
                     }                
@@ -65,8 +65,8 @@ pipeline {
             }
         }
         stage('Push docker image') {
-            script {
-                steps {
+            steps {
+                script {
                 withDockerRegistry(credentialsId: 'dockerhub-cred', toolName: 'docker') {
                     sh "docker push kkhoi/ekarrt:latest"
                     }                
