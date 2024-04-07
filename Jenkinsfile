@@ -50,11 +50,14 @@ pipeline {
             }
         }
         stage('Build and Tag docker image') {
-            steps {
+            script {
+                steps {
                 withDockerRegistry(credentialsId: 'dockerhub-cred', toolName: 'docker') {
                     sh "docker build -t kkhoi/ekarrt:latest -f docker/Dockerfile ."
-                }                
+                    }                
+                }
             }
+            
         }
         stage('Trivy scan') {
             steps {
@@ -62,11 +65,14 @@ pipeline {
             }
         }
         stage('Push docker image') {
-            steps {
+            script {
+                steps {
                 withDockerRegistry(credentialsId: 'dockerhub-cred', toolName: 'docker') {
                     sh "docker push kkhoi/ekarrt:latest"
-                }                
+                    }                
+                }
             }
+            
         }
         stage('Kube deploy') {
             steps {
