@@ -71,7 +71,8 @@ pipeline {
         stage('Kube deploy') {
             steps {
                 withKubeConfig(credentialsId: 'k8s-cred', namespace:'webapp', restrictKubeConfigAccess: false, serverUrl: 'https://172.31.32.96:6443') {
-                    sh "kubectl apply -f "
+                    sh "kubectl apply -f deploymentservice.yml -n webapp"
+                    sh "kubectl get svc -n webapp"
             }
         }
     }
