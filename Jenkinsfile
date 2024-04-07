@@ -49,5 +49,12 @@ pipeline {
                 }
             }
         }
+        stage('Build and Tag docker image') {
+            steps {
+                withDockerRegistry(credentialsId: 'dockerhub-cred', toolNamw: 'docker') {
+                    sh "docker build -t kkhoi/ekarrt:lastest -f docker/Dockerfile ."
+                }                
+            }
+        }
     }
 }
