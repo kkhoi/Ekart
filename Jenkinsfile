@@ -51,8 +51,20 @@ pipeline {
         }
         stage('Build and Tag docker image') {
             steps {
-                withDockerRegistry(credentialsId: 'dockerhub-cred', toolNamw: 'docker') {
-                    sh "docker build -t kkhoi/ekarrt:lastest -f docker/Dockerfile ."
+                withDockerRegistry(credentialsId: 'dockerhub-cred', toolName: 'docker') {
+                    sh "docker build -t kkhoi/ekarrt:latest -f docker/Dockerfile ."
+                }                
+            }
+        }
+        stage('Trivy scan') {
+            steps {
+                sh "trivy image kkhoi/ekarrt:latest > tryvi-report.txt"                
+            }
+        }
+        stage('Push docker image') {
+            steps {
+                withDockerRegistry(credentialsId: 'dockerhub-cred', toolName: 'docker') {
+                    sh "docker push kkhoi/ekarrt:latest"
                 }                
             }
         }
