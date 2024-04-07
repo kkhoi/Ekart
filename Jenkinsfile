@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Sonar Ana') {
             steps {
-                withSonarQubeEnv('sonar') {
+                withSonarQubeEnv('sonarserver') {
                     sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=EKART -Dsonar.projectName=EKART \
                     -Dsonar.java.binaries=. '''
                 }
