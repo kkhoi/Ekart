@@ -11,3 +11,6 @@ output "instance_publicdns" {
   description = "EC2 Instance Public DNS"
   value = aws_instance.jenkins.public_dns
 }
+output "Jenkins_Initial_Password" {
+  value = "sudo cat /var/lib/jenkins/secrets/initialAdminPassword"
+}
