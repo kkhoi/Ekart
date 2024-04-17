@@ -1,8 +1,10 @@
 #! /bin/bash
 
 apt update
-apt  install docker.io -y
+apt install docker.io -y
+chmod 666 /var/run/docker.sock
 service docker restart
+sudo apt-get install wget apt-transport-https gnupg lsb-release -y
 cd /etc/apt/
 mkdir keyrings
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
